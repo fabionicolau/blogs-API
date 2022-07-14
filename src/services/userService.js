@@ -37,6 +37,11 @@ const userService = {
 
     return token;
   },
+
+  getAllUsers: async () => {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return users;
+  },
 };
 
 module.exports = userService;

@@ -11,8 +11,10 @@ app.use(express.json());
 
 app.use('/login', loginRoute);
 app.use(loginErrorHandler);
+
 app.use('/user', userRoute);
 app.use(userErrorHandler);
+
 // ...
 
 // É importante exportar a constante `app`,

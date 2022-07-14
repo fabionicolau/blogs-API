@@ -5,6 +5,11 @@ const userController = {
       const token = await userService.createUser(req.body);
       res.status(201).json({ token });
   },
+
+  getAllUsers: async (req, res) => {
+      const users = await userService.getAllUsers();
+      res.status(200).json(users);
+  },
 };
 
 module.exports = userController;
