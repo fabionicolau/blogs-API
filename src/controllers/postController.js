@@ -14,18 +14,25 @@ const postController = {
     res.status(200).json(post);
   },
 
+  getPostByQuery: async (req, res) => {
+    const { q } = req.query;
+    const posts = await postService.getPostByQuery(q);
+    res.status(200).json(posts);
+  },  
+
+  createPost: async (req, res) => {
+    const { authorization } = req.headers;
+    const post = await postService.createPost(authorization, req.body);
+    res.status(201).json(post);
+  },
+
   deletePostById: async (req, res) => {
       const { id } = req.params;
       const { authorization } = req.headers;
       await postService.deletePostById(id, authorization);
       res.status(204).end();
   },
-
-  getPostByQuery: async (req, res) => {
-    const { q } = req.query;
-    const posts = await postService.getPostByQuery(q);
-    res.status(200).json(posts);
-  },    
+    
 };
 
 module.exports = postController;  
