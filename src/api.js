@@ -6,6 +6,7 @@ const categoryRoute = require('./routes/categoryRoute');
 const postRoute = require('./routes/postRoute');
 const loginErrorHandler = require('./middleware/loginErrorHandler');
 const userErrorHandler = require('./middleware/userErrorHandler');
+const postErrorHandler = require('./middleware/postErrorHandler');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/categories', categoryRoute);
 
 // Post categories routes
 app.use('/post', postRoute);
+app.use(postErrorHandler);
 
 // ...
 

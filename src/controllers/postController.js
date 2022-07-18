@@ -13,6 +13,13 @@ const postController = {
     }
     res.status(200).json(post);
   },
+
+  deletePostById: async (req, res) => {
+      const { id } = req.params;
+      const { authorization } = req.headers;
+      await postService.deletePostById(id, authorization);
+      res.status(204).end();
+  },
 };
 
-module.exports = postController;
+module.exports = postController;  

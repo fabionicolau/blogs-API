@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
 const handleToken = require('./jwtService');
 
@@ -46,6 +47,11 @@ const userService = {
   getUserById: async (id) => {
     const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
     return user;
+  },
+
+  deleteUser: async (token) => {
+    const decoded = jwt.decode(token);
+    await User.destroy({ where: { id: decoded.data.id } });
   },
 };
 
