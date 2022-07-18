@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
 
 const postService = {
@@ -42,6 +43,26 @@ const postService = {
           throw err;
         }
         await BlogPost.destroy({ where: { id } });
+      },
+
+      getPostByQuery: async (query) => {
+        if (!query) return postService.getAllPostCategories();
+        const post = await BlogPost.findAll({
+          where: {
+            [Op.or]: [
+              { title: { [Op.substring]: query } },
+              { content: { [Op.substring]: query } },
+            ],
+          },
+          include: [
+            { model: User, as: 'user', attributes: { exclude: ['password'] } },
+            { model: Category, as: 'categories', through: { attributes: [] } },
+          ],
+        });
+        if (!post) {
+          return [];
+        }
+        return post;
       },
   };
 

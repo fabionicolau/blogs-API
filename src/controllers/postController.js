@@ -20,6 +20,12 @@ const postController = {
       await postService.deletePostById(id, authorization);
       res.status(204).end();
   },
+
+  getPostByQuery: async (req, res) => {
+    const { q } = req.query;
+    const posts = await postService.getPostByQuery(q);
+    res.status(200).json(posts);
+  },    
 };
 
 module.exports = postController;  
