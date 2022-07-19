@@ -26,6 +26,12 @@ const postController = {
     res.status(201).json(post);
   },
 
+  updatePost: async (req, res) => {
+    const { authorization } = req.headers;
+    const post = await postService.updatePost(authorization, req.params.id, req.body);
+    res.status(200).json(post);
+  },
+
   deletePostById: async (req, res) => {
       const { id } = req.params;
       const { authorization } = req.headers;
